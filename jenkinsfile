@@ -1,6 +1,4 @@
 pipeline {
-
-
 agent any
 
 tools {
@@ -50,8 +48,6 @@ post {
 
     always {
 
-        junit 'target/*.xml'
-
         archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
 
     }
@@ -67,8 +63,8 @@ post {
         echo 'Build Failed'
 
     }
-
-} 
+  }
 }
+
 
 
