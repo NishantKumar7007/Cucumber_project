@@ -1,50 +1,74 @@
 pipeline {
+
+
 agent any
 
-```
 tools {
+
     maven 'Maven3'
-    jdk 'JDK21'
+
+    jdk 'JDK'
+
 }
 
 stages {
 
     stage('Checkout') {
+
         steps {
+
             git branch: 'master',
                 url: 'https://github.com/NishantKumar7007/Cucumber_project.git'
+
         }
+
     }
 
     stage('Build & Test') {
+
         steps {
+
             bat 'mvn clean test'
+
         }
+
     }
 
     stage('Package') {
+
         steps {
+
             bat 'mvn package -DskipTests'
+
         }
+
     }
+
 }
 
 post {
+
     always {
 
-        junit 'target/surefire-reports/*.xml'
+        junit 'target/*.xml'
 
         archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
+
     }
 
     success {
+
         echo 'Build Successful'
+
     }
 
     failure {
-        echo 'Build Failed'
-    }
-}
-```
 
+        echo 'Build Failed'
+
+    }
+
+} 
 }
+
+
